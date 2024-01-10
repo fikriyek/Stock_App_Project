@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'drf_yasg',
     'rest_framework.authtoken',
+    'django_filters',
 
     # MY APPS
     'stock',
@@ -184,5 +185,13 @@ LOGGING = {
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS':[
+        'django_filters.rest_framework.DjangoFilterBackend'
+
+    ],
+}
+
+REST_AUTH = {
+    'TOKEN_SERIALIZER':'user.serializers.CustomTokenSerializer'
 }
