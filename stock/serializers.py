@@ -14,10 +14,12 @@ class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = (
-            'category_id',
+            'name',
+            'id',
             'category',
-            'brand_id',
+            'category_id',
             'brand',
+            'brand_id',
             'stock',
             'created',
             'updated',
@@ -43,16 +45,17 @@ class CategorySerializer(serializers.ModelSerializer):
 # Category Detail Serializer
 class CategoryDetailSerializer(serializers.ModelSerializer):
 
-    product_count = serializers.SerializerMethodField()
-
     product = ProductSerializer(many=True, read_only=True)
+    category = serializers.StringRelatedField()
+    category_id = serializers.IntegerField()
 
     class Meta:
         model = Category
         fields = (
             'id',
             'name',
-            'product_count',
+            'category',
+            'category_id',
             'product',
         )
         read_only_fields = (
@@ -60,23 +63,15 @@ class CategoryDetailSerializer(serializers.ModelSerializer):
             'product',
         )
 
-
-    def get_product_count(self, obj):
-        return obj.product_set.count()
-    
-    # def create(self, validated_data):
-    #     product_data = validated_data.pop('product')
-
-    #     category = Category.objects.create(**validated_data)
-
-
-    #     for product in product_data:
-    #         prod = Product.objects.create(**product)
-    #         category.product.add(prod)
-
-    #     category.save()
-    #     return category
-
+# class CategoryDetailSerializer(serializers.ModelSerializer):
+#     category = serializers.StringRelatedField()
+#     class Meta:
+#         model = Category
+#         fields = (
+#             'id',
+#             'name',
+#             'category',
+#         )
 
 
 # Brand Serializer
