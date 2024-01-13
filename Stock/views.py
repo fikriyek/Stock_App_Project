@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import JsonResponse
+from rest_framework import status
+
 from .models import Category, Brand, Product, Firm, Purchases, Sales
 from .serializers import CategorySerializer, CategoryDetailSerializer, ProductSerializer, BrandSerializer
 from .serializers import FirmSerializer, PurchasesSerializer, SalesSerializer
@@ -19,12 +20,6 @@ class CategoryListAPIView(ListAPIView):
     filterset_fields = ['name']
     search_fields = ['name']
 
-# POST for Category
-class CategoryCreateAPIView(CreateAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]
-
 # GET for Category Product
 class CategoryProductListAPIView(ListAPIView):
     queryset = Category.objects.all()
@@ -37,8 +32,14 @@ class CategoryProductListAPIView(ListAPIView):
         # categories = Category.objects.filter(name = category_name)
         product = Product.objects.filter(name = category_name)
 
-        # return categories
+        # return product
         return product
+
+# POST for Category
+class CategoryCreateAPIView(CreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 # GET for Product   
 class ProductListAPIView(ListAPIView):
@@ -49,6 +50,12 @@ class ProductListAPIView(ListAPIView):
     filterset_fields = ['category', 'brand']
     search_fields = ['name']
 
+# POST for Product
+class ProductCreateAPIView(CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 # GET for Brand
 class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
@@ -57,13 +64,25 @@ class BrandListAPIView(ListAPIView):
     filter_backends = [SearchFilter]
     search_fields = ['name']
 
+# POST for Brand
+class BrandCreateAPIView(CreateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 # GET for Firm 
 class FirmListAPIView(ListAPIView):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [SearchFilter]
-    search_fields = ['name']  
+    search_fields = ['name'] 
+
+# POST for Firm
+class FirmCreateAPIView(CreateAPIView):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
 
 # GET for Purchases
 class PurchasesListAPIView(ListAPIView):
@@ -74,6 +93,14 @@ class PurchasesListAPIView(ListAPIView):
     filterset_fields = ['firm', 'product']
     search_fields = ['firm']
 
+# POST for Purchases
+class PurchasesCreateAPIView(CreateAPIView):
+    queryset = Purchases.objects.all()
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    # TO DO
+
 # GET for Sales
 class SalesListAPIView(ListAPIView):
     queryset = Sales.objects.all()
@@ -82,3 +109,11 @@ class SalesListAPIView(ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_fields = ['brand', 'product']
     search_fields = ['brand']
+
+# POST for Sales
+class SalesCreateAPIView(CreateAPIView):
+    queryset = Sales.objects.all()
+    serializer_class = SalesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    # TO DO

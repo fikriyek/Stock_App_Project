@@ -118,6 +118,7 @@ class PurchasesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Purchases
         fields = (
+            'id',
             'user_id',
             'user',
             'firm_id',
@@ -135,6 +136,11 @@ class PurchasesSerializer(serializers.ModelSerializer):
     def get_price_total(self, obj):
         self.price_total = obj.price * obj.quantity
         return self.price_total
+    
+    def create(self, validated_data):
+        validated_data['user_id'] = self.context['request'].user.id
+        instance = Purchases.objects.create(**validated_data)
+        return instance
 
 # Sales Serializer
 class SalesSerializer(serializers.ModelSerializer):

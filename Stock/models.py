@@ -11,7 +11,7 @@ class Category(models.Model):
     
 # Brand Table
 class Brand(models.Model):
-    name = models.CharField(max_length=10)
+    name = models.CharField(max_length=20)
     image = models.ImageField(blank=True, null=True, upload_to='Brand')
 
     def __str__(self):
@@ -31,7 +31,7 @@ class Product(models.Model):
 
 # Firm Table
 class Firm(models.Model):
-    name = models.CharField(max_length=60, blank=True, null=True)
+    name = models.CharField(max_length=60, blank=True, null=True, unique=True)
     phone = models.PositiveSmallIntegerField(null=True)
     address = models.TextField(max_length=120, blank=True)
     image = models.ImageField(blank=True, null=True, upload_to='Firm')
