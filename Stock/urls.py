@@ -23,6 +23,6 @@ urlpatterns = [
     path('brandCreate/', BrandCreateAPIView.as_view()),
     path('productCreate/', ProductCreateAPIView.as_view()),
     path('firmCreate/', FirmCreateAPIView.as_view()),
-    path('purchasesCreate/', PurchasesCreateAPIView.as_view()),  # TO DO
+    path('purchasesCreate/<int:product_id>/', PurchasesCreateAPIView.as_view()),  # TO DO
     path('salesCreate/', SalesCreateAPIView.as_view()),  # TO DO
 ]

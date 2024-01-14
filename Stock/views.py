@@ -55,6 +55,7 @@ class ProductCreateAPIView(CreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
 
 # GET for Brand
 class BrandListAPIView(ListAPIView):
@@ -98,8 +99,6 @@ class PurchasesCreateAPIView(CreateAPIView):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-    # TO DO
 
 # GET for Sales
 class SalesListAPIView(ListAPIView):
