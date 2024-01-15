@@ -112,6 +112,13 @@ class PurchasesUpdateAPIView(UpdateAPIView):
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# DELETE for Purchases
+class PurchasesDeleteAPIView(DestroyAPIView):
+    queryset = Purchases.objects.all()
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
 # GET for Sales
 class SalesListAPIView(ListAPIView):
     queryset = Sales.objects.all()
@@ -126,5 +133,3 @@ class SalesCreateAPIView(CreateAPIView):
     queryset = Sales.objects.all()
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
-
-    # TO DO

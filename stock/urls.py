@@ -5,7 +5,7 @@ from .views import CategoryListAPIView, CategoryProductListAPIView, CategoryCrea
 from .views import BrandListAPIView, BrandCreateAPIView
 from .views import FirmListAPIView, FirmCreateAPIView
 from .views import ProductListAPIView, ProductCreateAPIView, ProductUpdateAPIView
-from .views import PurchasesListAPIView, PurchasesCreateAPIView, PurchasesUpdateAPIView
+from .views import PurchasesListAPIView, PurchasesCreateAPIView, PurchasesUpdateAPIView, PurchasesDeleteAPIView
 from .views import SalesListAPIView, SalesCreateAPIView
 
 urlpatterns = [
@@ -29,4 +29,7 @@ urlpatterns = [
     # Urls for UPDATE method
     path('productUpdate/<int:pk>/', ProductUpdateAPIView.as_view()),
     path('purchasesUpdate/<int:pk>/', PurchasesUpdateAPIView.as_view()),
+
+    # Urls for DELETE method
+    path('purchasesDelete/<int:pk>/', PurchasesDeleteAPIView.as_view()),
 ]

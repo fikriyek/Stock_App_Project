@@ -3,7 +3,7 @@ from django.db.models.signals import pre_save, post_save, pre_delete
 
 from django.dispatch import receiver
 
-# POST
+# Update stock of Product after new Purchase is created. 
 @receiver(post_save, sender=Purchases)
 def update_product_stock(sender, instance, created, **kwargs):
     """
@@ -29,7 +29,7 @@ def update_product_stock(sender, instance, created, **kwargs):
     #         quantity_changed = quantity_purchased - old_quantity     
     
 
-# UPDATE
+# Update stock of Product after existing Purchase is updated.
 @receiver(pre_save, sender=Purchases)
 def store_old_quantity(sender, instance, **kwargs):
     
@@ -52,7 +52,7 @@ def store_old_quantity(sender, instance, **kwargs):
     product.stock += quantity_changed        
     product.save() 
 
-# DELETE
+# Update stock of Product after existing Purchase is deleted.
 @receiver(pre_delete, sender=Purchases)
 def update_product_stock_on_delete(sender, instance, **kwargs):
 
