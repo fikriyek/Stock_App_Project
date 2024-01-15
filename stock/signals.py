@@ -1,8 +1,9 @@
 from .models import Purchases
-from django.db.models.signals import post_save
+from django.db.models.signals import pre_save, post_save, pre_delete
 
 from django.dispatch import receiver
 
+# POST
 @receiver(post_save, sender=Purchases)
 def update_product_stock(sender, instance, created, **kwargs):
     """
@@ -20,13 +21,45 @@ def update_product_stock(sender, instance, created, **kwargs):
             product.stock += quantity_purchased
             product.save()
     
+    # elif instance.pk is not None:
+    #     if product.brand == brand:
+    #         if product.stock is None:
+    #             product.stock = 0
+    #         old_quantity = product.stock
+    #         quantity_changed = quantity_purchased - old_quantity     
+    
+
+# UPDATE
+@receiver(pre_save, sender=Purchases)
+def store_old_quantity(sender, instance, **kwargs):
+    
+    brand = instance.brand
+    product = instance.product
+    quantity_purchased = instance.quantity
+
     if instance.pk is not None:
         if product.brand == brand:
-            if product.stock is None:
-                product.stock = 0
-            old_quantity = product.stock
-            quantity_changed = quantity_purchased - old_quantity     
-    
-            product.stock += quantity_changed 
-            print(old_quantity)           
-            product.save()
+            old_instance = Purchases.objects.get(pk=instance.pk)
+            if old_instance.quantity is not None:
+                old_quantity = old_instance.quantity
+            else:
+                old_quantity = 0
+            
+            quantity_changed = quantity_purchased - old_quantity
+    else:
+        quantity_changed = quantity_purchased
+
+    product.stock += quantity_changed        
+    product.save() 
+
+# DELETE
+@receiver(pre_delete, sender=Purchases)
+def update_product_stock_on_delete(sender, instance, **kwargs):
+
+    product = instance.product
+    brand = instance.brand
+    quantity_purchased = instance.quantity
+
+    if product.brand == brand:
+        product.stock -= quantity_purchased
+        product.save()    
