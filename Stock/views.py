@@ -6,7 +6,7 @@ from .serializers import CategorySerializer, CategoryDetailSerializer, ProductSe
 from .serializers import FirmSerializer, PurchasesSerializer, SalesSerializer
 
 from rest_framework.response import Response
-from rest_framework.generics import ListAPIView, CreateAPIView
+from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
@@ -41,6 +41,18 @@ class CategoryCreateAPIView(CreateAPIView):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT for Category
+class CategoryUpdateAPIView(UpdateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Category
+class CategoryDeleteAPIView(DestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]    
+
 # GET for Product   
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
@@ -57,6 +69,18 @@ class ProductCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
 
+# PUT for Product
+class ProductUpdateAPIView(UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Product
+class ProductDeleteAPIView(DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 # GET for Brand
 class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
@@ -71,6 +95,18 @@ class BrandCreateAPIView(CreateAPIView):
     serializer_class = BrandSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT for Brand
+class BrandUpdateAPIView(UpdateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Brand
+class BrandDeleteAPIView(DestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
 # GET for Firm 
 class FirmListAPIView(ListAPIView):
     queryset = Firm.objects.all()
@@ -81,6 +117,18 @@ class FirmListAPIView(ListAPIView):
 
 # POST for Firm
 class FirmCreateAPIView(CreateAPIView):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# PUT for Firm
+class FirmUpdateAPIView(UpdateAPIView):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Firm
+class FirmDeleteAPIView(DestroyAPIView):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -100,6 +148,19 @@ class PurchasesCreateAPIView(CreateAPIView):
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT for Purchases
+class PurchasesUpdateAPIView(UpdateAPIView):
+    queryset = Purchases.objects.all()
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Purchases
+class PurchasesDeleteAPIView(DestroyAPIView):
+    queryset = Purchases.objects.all()
+    serializer_class = PurchasesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+
 # GET for Sales
 class SalesListAPIView(ListAPIView):
     queryset = Sales.objects.all()
@@ -115,4 +176,14 @@ class SalesCreateAPIView(CreateAPIView):
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-    # TO DO
+# PUT for Sales
+class SalesUpdateAPIView(UpdateAPIView):
+    queryset = Sales.objects.all()
+    serializer_class = SalesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Sales
+class SalesDeleteAPIView(DestroyAPIView):
+    queryset = Sales.objects.all()
+    serializer_class = SalesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]

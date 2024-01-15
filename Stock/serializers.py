@@ -130,8 +130,9 @@ class PurchasesSerializer(serializers.ModelSerializer):
             'quantity',
             'price',
             'price_total',
-
         )
+
+        read_only_fields = ('user_id', 'user', 'firm_id, firm', 'brand_id', 'brand', 'product_id', 'product')
 
     def get_price_total(self, obj):
         self.price_total = obj.price * obj.quantity
@@ -169,6 +170,7 @@ class SalesSerializer(serializers.ModelSerializer):
             'price',
             'price_total',
         )
+        read_only_fields = ('user_id', 'user', 'brand_id', 'brand', 'product_id', 'product')
 
     def get_price_total(self, obj):
         self.price_total = obj.price * obj.quantity
