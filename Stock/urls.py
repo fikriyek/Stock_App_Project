@@ -19,26 +19,26 @@ urlpatterns = [
     path('salesList/', SalesListAPIView.as_view()),
 
     # Urls for POST method
-    path('categoryCreate/', CategoryCreateAPIView.as_view()),  # TO BE TESTED
-    path('brandCreate/', BrandCreateAPIView.as_view()),  # TO BE TESTED
+    path('categoryCreate/', CategoryCreateAPIView.as_view()),
+    path('brandCreate/', BrandCreateAPIView.as_view()),
     path('productCreate/', ProductCreateAPIView.as_view()),
-    path('firmCreate/', FirmCreateAPIView.as_view()),  # TO BE TESTED
+    path('firmCreate/', FirmCreateAPIView.as_view()), 
     path('purchasesCreate/<int:product_id>/', PurchasesCreateAPIView.as_view()),
     path('salesCreate/', SalesCreateAPIView.as_view()),  # TO DO
 
     # Urls for UPDATE method
-    path('categoryUpdate/<int:pk>/', CategoryUpdateAPIView.as_view()),  # TO BE TESTED
-    path('brandUpdate/<int:pk>/', BrandUpdateAPIView.as_view()),  # TO BE TESTED
+    path('categoryUpdate/<int:pk>/', CategoryUpdateAPIView.as_view()),
+    path('brandUpdate/<int:pk>/', BrandUpdateAPIView.as_view()),  
     path('productUpdate/<int:pk>/', ProductUpdateAPIView.as_view()),
-    path('firmUpdate/<int:pk>/', FirmUpdateAPIView.as_view()),  # TO BE TESTED
+    path('firmUpdate/<int:pk>/', FirmUpdateAPIView.as_view()), 
     path('purchasesUpdate/<int:pk>/', PurchasesUpdateAPIView.as_view()),
     path('salesUpdate/<int:pk>/', SalesUpdateAPIView.as_view()),  # TO BE TESTED
 
     # Urls for DELETE method
-    path('categoryDelete/<int:pk>/', CategoryDeleteAPIView.as_view()),  # TO BE TESTED
-    path('brandDelete/<int:pk>/', BrandDeleteAPIView.as_view()),  # TO BE TESTED
-    path('productDelete/<int:pk>/', ProductDeleteAPIView.as_view()),  # TO BE TESTED
-    path('firmDelete/<int:pk>/', FirmDeleteAPIView.as_view()),  # TO BE TESTED
+    path('categoryDelete/<int:pk>/', CategoryDeleteAPIView.as_view()),
+    path('brandDelete/<int:pk>/', BrandDeleteAPIView.as_view()),
+    path('productDelete/<int:pk>/', ProductDeleteAPIView.as_view()),
+    path('firmDelete/<int:pk>/', FirmDeleteAPIView.as_view()),
     path('purchasesDelete/<int:pk>/', PurchasesDeleteAPIView.as_view()),
     path('salesDelete/<int:pk>/', SalesDeleteAPIView.as_view()),  # TO BE TESTED
 ]

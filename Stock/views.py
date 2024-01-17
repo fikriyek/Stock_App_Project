@@ -1,10 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render
+from django.http import Http404
 from rest_framework import status
-
 from .models import Category, Brand, Product, Firm, Purchases, Sales
 from .serializers import CategorySerializer, CategoryDetailSerializer, ProductSerializer, BrandSerializer
 from .serializers import FirmSerializer, PurchasesSerializer, SalesSerializer
-
 from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
@@ -51,7 +50,19 @@ class CategoryUpdateAPIView(UpdateAPIView):
 class CategoryDeleteAPIView(DestroyAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = [IsAuthenticatedOrReadOnly]    
+    permission_classes = [IsAuthenticatedOrReadOnly]  
+
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This category is deleted!"}, status=status.HTTP_204_NO_CONTENT)
 
 # GET for Product   
 class ProductListAPIView(ListAPIView):
@@ -81,6 +92,19 @@ class ProductDeleteAPIView(DestroyAPIView):
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This product is deleted!"}, status=status.HTTP_204_NO_CONTENT)
+  
+
 # GET for Brand
 class BrandListAPIView(ListAPIView):
     queryset = Brand.objects.all()
@@ -107,6 +131,18 @@ class BrandDeleteAPIView(DestroyAPIView):
     serializer_class = BrandSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_object(self, pk):
+        try:
+            return Brand.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This brand is deleted!"}, status=status.HTTP_204_NO_CONTENT) 
+
 # GET for Firm 
 class FirmListAPIView(ListAPIView):
     queryset = Firm.objects.all()
@@ -132,6 +168,18 @@ class FirmDeleteAPIView(DestroyAPIView):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This firm is deleted!"}, status=status.HTTP_204_NO_CONTENT)
 
 # GET for Purchases
 class PurchasesListAPIView(ListAPIView):
@@ -160,6 +208,18 @@ class PurchasesDeleteAPIView(DestroyAPIView):
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This purchase is deleted!"}, status=status.HTTP_204_NO_CONTENT)
+
 
 # GET for Sales
 class SalesListAPIView(ListAPIView):
@@ -187,3 +247,15 @@ class SalesDeleteAPIView(DestroyAPIView):
     queryset = Sales.objects.all()
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def get_object(self, pk):
+        try:
+            return Product.objects.get(pk=pk)
+        except Product.DoesNotExist:
+            raise Http404
+
+    def delete(self, request, pk, format=None):
+        instance = self.get_object(pk)
+        instance.delete()
+       
+        return Response({"message": "This sale is deleted!"}, status=status.HTTP_204_NO_CONTENT) 

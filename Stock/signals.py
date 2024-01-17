@@ -1,7 +1,7 @@
 from .models import Purchases
 from django.db.models.signals import pre_save, post_save, pre_delete
-
 from django.dispatch import receiver
+from rest_framework.response import Response
 
 ############################ PURCHASES ###############################################
 # Update stock of Product after new Purchase is created. 
@@ -65,6 +65,8 @@ def update_product_stock_on_delete(sender, instance, **kwargs):
         product.stock -= quantity_purchased
         product.save()
 
+    def delete(self, request, *args, **kwargs):
+        return Response({"message": "This category deleted successfully!"})
 
 ############################ SALES ###############################################
 # TO DO    
