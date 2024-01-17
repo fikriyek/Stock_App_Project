@@ -24,7 +24,7 @@ urlpatterns = [
     path('productCreate/', ProductCreateAPIView.as_view()),
     path('firmCreate/', FirmCreateAPIView.as_view()), 
     path('purchasesCreate/<int:product_id>/', PurchasesCreateAPIView.as_view()),
-    path('salesCreate/', SalesCreateAPIView.as_view()),  # TO DO
+    path('salesCreate/', SalesCreateAPIView.as_view()),
 
     # Urls for UPDATE method
     path('categoryUpdate/<int:pk>/', CategoryUpdateAPIView.as_view()),
@@ -32,7 +32,7 @@ urlpatterns = [
     path('productUpdate/<int:pk>/', ProductUpdateAPIView.as_view()),
     path('firmUpdate/<int:pk>/', FirmUpdateAPIView.as_view()), 
     path('purchasesUpdate/<int:pk>/', PurchasesUpdateAPIView.as_view()),
-    path('salesUpdate/<int:pk>/', SalesUpdateAPIView.as_view()),  # TO BE TESTED
+    path('salesUpdate/<int:pk>/', SalesUpdateAPIView.as_view()),  # TO DO
 
     # Urls for DELETE method
     path('categoryDelete/<int:pk>/', CategoryDeleteAPIView.as_view()),
@@ -40,5 +40,5 @@ urlpatterns = [
     path('productDelete/<int:pk>/', ProductDeleteAPIView.as_view()),
     path('firmDelete/<int:pk>/', FirmDeleteAPIView.as_view()),
     path('purchasesDelete/<int:pk>/', PurchasesDeleteAPIView.as_view()),
-    path('salesDelete/<int:pk>/', SalesDeleteAPIView.as_view()),  # TO BE TESTED
+    path('salesDelete/<int:pk>/', SalesDeleteAPIView.as_view()),  # TO DO
 ]

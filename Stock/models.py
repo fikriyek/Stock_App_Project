@@ -11,7 +11,7 @@ class Category(models.Model):
     
 # Brand Table
 class Brand(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     image = models.ImageField(blank=True, null=True, upload_to='Brand')
 
     def __str__(self):

@@ -1,4 +1,4 @@
-from .models import Purchases
+from .models import Purchases, Sales
 from django.db.models.signals import pre_save, post_save, pre_delete
 from django.dispatch import receiver
 from rest_framework.response import Response
@@ -28,8 +28,7 @@ def update_product_stock(sender, instance, created, **kwargs):
     #             product.stock = 0
     #         old_quantity = product.stock
     #         quantity_changed = quantity_purchased - old_quantity     
-    
-
+   
 # Update stock of Product after existing Purchase is updated.
 @receiver(pre_save, sender=Purchases)
 def store_old_quantity(sender, instance, **kwargs):
@@ -69,4 +68,24 @@ def update_product_stock_on_delete(sender, instance, **kwargs):
         return Response({"message": "This category deleted successfully!"})
 
 ############################ SALES ###############################################
-# TO DO    
+# Update stock of Product after new Sales is created.  
+@receiver(post_save, sender=Sales)
+def update_product_stock(sender, instance, created, **kwargs):
+    """
+    Signal to update the stock in the Product table after a new stock is created.
+    """
+    brand = instance.brand
+    product = instance.product
+    quantity_saled = instance.quantity
+
+    if created:
+        if product.brand == brand:
+            # Initial case                 
+            if product.stock is None:
+                product.stock = 0
+            
+            # If stock of product is greater or equal to quantity of sales
+            if product.stock >= instance.quantity:
+                product.stock -= quantity_saled
+                product.save()
+      
