@@ -1,11 +1,11 @@
 from django.shortcuts import render, get_object_or_404
+from django.http import Http404
 from rest_framework import status
-
 from .models import Category, Brand, Product, Firm, Purchases, Sales
 from .serializers import CategorySerializer, CategoryDetailSerializer, ProductSerializer, BrandSerializer
 from .serializers import FirmSerializer, PurchasesSerializer, SalesSerializer
-
 from rest_framework.response import Response
+from django.http import JsonResponse
 from rest_framework.generics import ListAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django_filters.rest_framework import DjangoFilterBackend
@@ -41,6 +41,27 @@ class CategoryCreateAPIView(CreateAPIView):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT for Category
+class CategoryUpdateAPIView(UpdateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Category
+class CategoryDeleteAPIView(DestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)  
+
+
 # GET for Product   
 class ProductListAPIView(ListAPIView):
     queryset = Product.objects.all()
@@ -57,11 +78,26 @@ class ProductCreateAPIView(CreateAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     filter_backends = [DjangoFilterBackend, SearchFilter]
 
-# UPDATE for Product
+# PUT for Product
 class ProductUpdateAPIView(UpdateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Product
+class ProductDeleteAPIView(DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)
+
 
 # GET for Brand
 class BrandListAPIView(ListAPIView):
@@ -77,6 +113,27 @@ class BrandCreateAPIView(CreateAPIView):
     serializer_class = BrandSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
+# PUT for Brand
+class BrandUpdateAPIView(UpdateAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Brand
+class BrandDeleteAPIView(DestroyAPIView):
+    queryset = Brand.objects.all()
+    serializer_class = BrandSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)
+
+
 # GET for Firm 
 class FirmListAPIView(ListAPIView):
     queryset = Firm.objects.all()
@@ -90,6 +147,27 @@ class FirmCreateAPIView(CreateAPIView):
     queryset = Firm.objects.all()
     serializer_class = FirmSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+# PUT for Firm
+class FirmUpdateAPIView(UpdateAPIView):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Firm
+class FirmDeleteAPIView(DestroyAPIView):
+    queryset = Firm.objects.all()
+    serializer_class = FirmSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)
+
 
 # GET for Purchases
 class PurchasesListAPIView(ListAPIView):
@@ -106,7 +184,7 @@ class PurchasesCreateAPIView(CreateAPIView):
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
 
-# UPDATE for Purchases
+# PUT for Purchases
 class PurchasesUpdateAPIView(UpdateAPIView):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
@@ -117,6 +195,14 @@ class PurchasesDeleteAPIView(DestroyAPIView):
     queryset = Purchases.objects.all()
     serializer_class = PurchasesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)
 
 
 # GET for Sales
@@ -133,3 +219,23 @@ class SalesCreateAPIView(CreateAPIView):
     queryset = Sales.objects.all()
     serializer_class = SalesSerializer
     permission_classes = [IsAuthenticatedOrReadOnly]
+
+# PUT for Sales
+class SalesUpdateAPIView(UpdateAPIView):
+    queryset = Sales.objects.all()
+    serializer_class = SalesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+# DELETE for Sales
+class SalesDeleteAPIView(DestroyAPIView):
+    queryset = Sales.objects.all()
+    serializer_class = SalesSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        self.perform_destroy(instance)
+        return Response({
+            "message":"{instance} deleted successfully!"
+        },
+        status=status.HTTP_200_OK)

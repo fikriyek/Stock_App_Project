@@ -160,6 +160,7 @@ class SalesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sales
         fields = (
+            'id',
             'user_id',
             'user',
             'brand_id',
