@@ -13,22 +13,22 @@ def update_product_stock(sender, instance, created, **kwargs):
     """
     brand = instance.brand
     product = instance.product
-    quantity_purchased = instance.quantity
+    product.stock = 0
+    quantity_purchased = instance.quantity    
 
     if created:
-        if product.brand == brand:                 
-            if product.stock is None:
-                product.stock = 0
-
+        if product.brand == brand:              
+            print(product.stock)
             product.stock += quantity_purchased
+            print(product.stock)
             product.save()           
     
-    elif instance.pk is not None:
-        if product.brand == brand:
-            if product.stock is None:
-                product.stock = 0
-            old_quantity = product.stock
-            quantity_changed = quantity_purchased - old_quantity     
+    # elif instance.pk is not None:
+    #     if product.brand == brand:
+    #         if product.stock is None:
+    #             product.stock = 0
+    #         old_quantity = product.stock
+    #         quantity_changed = quantity_purchased - old_quantity     
    
 # Update stock of Product after existing Purchase is updated.
 @receiver(pre_save, sender=Purchases)
@@ -38,24 +38,20 @@ def store_old_quantity(sender, instance, **kwargs):
     """ 
     brand = instance.brand
     product = instance.product
-    quantity_purchased = instance.quantity
-    
+    quantity_purchased = instance.quantity    
 
     if instance.pk is not None:
         if product.brand == brand:
             old_instance = Purchases.objects.get(pk=instance.pk)
             if old_instance.quantity is not None:
                 old_quantity = old_instance.quantity
-                print(old_quantity)
             else:
                 old_quantity = 0
             
-            quantity_changed = quantity_purchased - old_quantity
-    else:
-        quantity_changed = quantity_purchased
-
-    product.stock += quantity_changed        
-    product.save() 
+        quantity_changed = quantity_purchased - old_quantity
+        
+        product.stock += quantity_changed        
+        product.save() 
 
 # Update stock of Product after existing Purchase is deleted.
 @receiver(pre_delete, sender=Purchases)
@@ -87,11 +83,15 @@ def update_product_stock(sender, instance, created, **kwargs):
             # Initial case                 
             if product.stock is None:
                 product.stock = 0
-            
+            print(product.stock)
+            print(instance.quantity)
             # If stock of product is greater or equal to quantity of sales
             if product.stock >= instance.quantity:
                 product.stock -= quantity_saled
+                print("I am here")
                 product.save()
+            else:
+                raise ValidationError(f'Quantity = {quantity_saled} of sale cannot be greater than stock = {product.stock} of product!')
 
 # # Update stock after existing Sale is updated
 @receiver(pre_save, sender=Sales)
@@ -102,7 +102,9 @@ def store_old_quantity(sender, instance, **kwargs):
     brand = instance.brand
     product = instance.product
     quantity_saled = instance.quantity
-    print(quantity_saled)
+    
+    if product.stock is None:
+        product.stock = 0
 
     if instance.pk is not None:
         if product.brand == brand:
@@ -131,6 +133,9 @@ def update_product_stock_on_delete(sender, instance, **kwargs):
     product = instance.product
     brand = instance.brand
     quantity_saled = instance.quantity
+
+    if product.stock is None:
+        product.stock = 0
 
     if product.brand == brand:
         product.stock += quantity_saled

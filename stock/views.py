@@ -57,7 +57,7 @@ class CategoryDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This category deleted successfully!"
         },
         status=status.HTTP_200_OK)  
 
@@ -94,7 +94,7 @@ class ProductDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This product deleted successfully!"
         },
         status=status.HTTP_200_OK)
 
@@ -129,7 +129,7 @@ class BrandDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This brand deleted successfully!"
         },
         status=status.HTTP_200_OK)
 
@@ -164,7 +164,7 @@ class FirmDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This firm deleted successfully!"
         },
         status=status.HTTP_200_OK)
 
@@ -200,7 +200,7 @@ class PurchasesDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This purchase deleted successfully!"
         },
         status=status.HTTP_200_OK)
 
@@ -236,6 +236,6 @@ class SalesDeleteAPIView(DestroyAPIView):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response({
-            "message":"{instance} deleted successfully!"
+            "message":"This sale deleted successfully!"
         },
         status=status.HTTP_200_OK)
