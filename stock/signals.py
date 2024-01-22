@@ -22,13 +22,6 @@ def update_product_stock(sender, instance, created, **kwargs):
             product.stock += quantity_purchased
             print(product.stock)
             product.save()           
-    
-    # elif instance.pk is not None:
-    #     if product.brand == brand:
-    #         if product.stock is None:
-    #             product.stock = 0
-    #         old_quantity = product.stock
-    #         quantity_changed = quantity_purchased - old_quantity     
    
 # Update stock of Product after existing Purchase is updated.
 @receiver(pre_save, sender=Purchases)
@@ -83,12 +76,10 @@ def update_product_stock(sender, instance, created, **kwargs):
             # Initial case                 
             if product.stock is None:
                 product.stock = 0
-            print(product.stock)
-            print(instance.quantity)
+
             # If stock of product is greater or equal to quantity of sales
             if product.stock >= instance.quantity:
                 product.stock -= quantity_saled
-                print("I am here")
                 product.save()
             else:
                 raise ValidationError(f'Quantity = {quantity_saled} of sale cannot be greater than stock = {product.stock} of product!')
