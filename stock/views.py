@@ -32,7 +32,7 @@ class CategoryProductListAPIView(ListAPIView):
         # categories = Category.objects.filter(name = category_name)
         product = Product.objects.filter(name = category_name)
 
-        # return product
+        # return categories
         return product
 
 # POST for Category
@@ -59,8 +59,7 @@ class CategoryDeleteAPIView(DestroyAPIView):
         return Response({
             "message":"This category deleted successfully!"
         },
-        status=status.HTTP_200_OK)  
-
+        status=status.HTTP_200_OK)
 
 # GET for Product   
 class ProductListAPIView(ListAPIView):
@@ -168,7 +167,6 @@ class FirmDeleteAPIView(DestroyAPIView):
         },
         status=status.HTTP_200_OK)
 
-
 # GET for Purchases
 class PurchasesListAPIView(ListAPIView):
     queryset = Purchases.objects.all()
@@ -203,7 +201,6 @@ class PurchasesDeleteAPIView(DestroyAPIView):
             "message":"This purchase deleted successfully!"
         },
         status=status.HTTP_200_OK)
-
 
 # GET for Sales
 class SalesListAPIView(ListAPIView):
