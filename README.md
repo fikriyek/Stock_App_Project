@@ -1,7 +1,6 @@
 STOCK APP PROJECT
 
 MODELS
-
 User
 Category
 Brand
@@ -9,9 +8,10 @@ Firm
 Product
 Purchases
 Sales
+
 ENTITY-RELATIONS DIAGRAM (ERD)
 
-![Uploading image.png…]()
+![image](https://github.com/fikriyek/Stock_App_Project/assets/140847020/c31a282b-50a5-46f7-ac77-439d860d45a0)
 
 USERS
 
